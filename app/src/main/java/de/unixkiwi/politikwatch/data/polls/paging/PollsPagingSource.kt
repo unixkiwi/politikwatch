@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import de.unixkiwi.politikwatch.data.core.model.AWApiResponseWrapper
+import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
 import de.unixkiwi.politikwatch.data.polls.model.AWApiPollModel
-import de.unixkiwi.politikwatch.data.polls.remote.AbgeordnetenWatchApi
 import de.unixkiwi.politikwatch.domain.models.Poll
 import retrofit2.HttpException
 import java.io.IOException

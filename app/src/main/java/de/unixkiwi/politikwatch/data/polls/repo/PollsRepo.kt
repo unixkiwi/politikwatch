@@ -3,8 +3,8 @@ package de.unixkiwi.politikwatch.data.polls.repo
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
 import de.unixkiwi.politikwatch.data.polls.paging.PollsPagingSource
-import de.unixkiwi.politikwatch.data.polls.remote.AbgeordnetenWatchApi
 import de.unixkiwi.politikwatch.domain.models.Poll
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
