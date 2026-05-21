@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
 import de.unixkiwi.politikwatch.data.polls.repo.PollRepository
+import de.unixkiwi.politikwatch.data.votes.repo.VoteRepository
 import javax.inject.Singleton
 
 @Module
@@ -16,5 +17,11 @@ class RepositoryModule {
     @Singleton
     fun providePollRepo(api: AbgeordnetenWatchApi): PollRepository {
         return PollRepository(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideVoteRepo(api: AbgeordnetenWatchApi): VoteRepository {
+        return VoteRepository(api)
     }
 }
