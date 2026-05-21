@@ -1,4 +1,4 @@
-package de.unixkiwi.politikwatch.data.polls.remote
+package de.unixkiwi.politikwatch.data.core.remote
 
 import de.unixkiwi.politikwatch.data.core.model.AWApiResponseWrapper
 import de.unixkiwi.politikwatch.data.polls.model.AWApiPollModel
@@ -13,6 +13,7 @@ interface AbgeordnetenWatchApi {
     @GET("polls")
     suspend fun getPolls(
         @Query("range_start") rangeStart: Int,
-        @Query("range_end") rangeEnd: Int
+        @Query("range_end") rangeEnd: Int,
+        @Query("sort_by") sortBy: String = "field_poll_date"
     ): AWApiResponseWrapper<List<AWApiPollModel>>
 }
