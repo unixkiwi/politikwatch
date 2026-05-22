@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import de.unixkiwi.politikwatch.presentation.home.view.HomePage
 import de.unixkiwi.politikwatch.ui.theme.PolitikWatchTheme
@@ -17,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PolitikWatchTheme {
-                HomePage(modifier = Modifier.fillMaxSize())
+                HomePage()
             }
         }
     }
