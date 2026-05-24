@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
+import de.unixkiwi.politikwatch.data.core.remote.DawumApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -36,5 +37,20 @@ object NetworkModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
             .build()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDawumApiService(client: OkHttpClient): DawumApi {
+        val moshi = Moshi.Builder()
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
+
+        return Retrofit.Builder()
+            .baseUrl(DawumApi.BASE_URL)
+            .client(client)
+            .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
+            .build()
+            .create(DawumApi::class.java)
     }
 }
