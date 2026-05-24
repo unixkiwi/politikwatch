@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.unixkiwi.politikwatch.data.polls.repo.PollRepository
-import de.unixkiwi.politikwatch.domain.models.Poll
+import de.unixkiwi.politikwatch.domain.models.BundestagsPoll
 import de.unixkiwi.politikwatch.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -51,7 +50,7 @@ class HomeViewModel @Inject constructor(
 }
 
 sealed interface HomeState {
-    data class Success(val polls: List<Poll>) : HomeState
+    data class Success(val polls: List<BundestagsPoll>) : HomeState
 
     data class Error(val title: String, val desc: String) : HomeState
     data object Loading : HomeState

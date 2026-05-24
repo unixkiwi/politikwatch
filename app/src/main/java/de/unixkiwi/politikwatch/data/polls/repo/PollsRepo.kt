@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
 import de.unixkiwi.politikwatch.data.polls.paging.PollsPagingSource
-import de.unixkiwi.politikwatch.domain.models.Poll
+import de.unixkiwi.politikwatch.domain.models.BundestagsPoll
 import de.unixkiwi.politikwatch.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class PollRepository @Inject constructor(
     private val api: AbgeordnetenWatchApi
 ) {
-    fun getPagedPolls(): Flow<PagingData<Poll>> {
+    fun getPagedPolls(): Flow<PagingData<BundestagsPoll>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 50,
@@ -27,7 +27,7 @@ class PollRepository @Inject constructor(
         ).flow
     }
 
-    fun getLatestPolls(count: Int = 100): Flow<Resource<List<Poll>>> {
+    fun getLatestPolls(count: Int = 100): Flow<Resource<List<BundestagsPoll>>> {
         return flow {
             emit(Resource.Loading())
 
