@@ -1,6 +1,6 @@
-package de.unixkiwi.politikwatch.data.polls.model
+package de.unixkiwi.politikwatch.data.awpolls.model
 
-import de.unixkiwi.politikwatch.domain.models.BundestagsPoll
+import de.unixkiwi.politikwatch.domain.models.AWPoll
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
@@ -13,8 +13,8 @@ data class AWApiPollModel(
     val field_accepted: Boolean,
     val field_poll_date: String
 ) {
-    fun toDomain(): BundestagsPoll {
-        return BundestagsPoll(
+    fun toDomain(): AWPoll {
+        return AWPoll(
             id = id,
             entityType = entity_type,
             label = label,

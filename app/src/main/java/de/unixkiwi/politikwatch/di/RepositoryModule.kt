@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import de.unixkiwi.politikwatch.data.awpolls.repo.AWPollRepository
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
-import de.unixkiwi.politikwatch.data.polls.repo.PollRepository
 import de.unixkiwi.politikwatch.data.votes.repo.VoteRepository
 import javax.inject.Singleton
 
@@ -15,8 +15,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providePollRepo(api: AbgeordnetenWatchApi): PollRepository {
-        return PollRepository(api)
+    fun providePollRepo(api: AbgeordnetenWatchApi): AWPollRepository {
+        return AWPollRepository(api)
     }
 
     @Provides

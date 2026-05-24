@@ -1,7 +1,7 @@
 package de.unixkiwi.politikwatch.data.core.remote
 
+import de.unixkiwi.politikwatch.data.awpolls.model.AWApiPollModel
 import de.unixkiwi.politikwatch.data.core.model.AWApiResponseWrapper
-import de.unixkiwi.politikwatch.data.polls.model.AWApiPollModel
 import de.unixkiwi.politikwatch.data.votes.model.AWApiVoteModel
 import retrofit2.http.GET
 import retrofit2.http.Query

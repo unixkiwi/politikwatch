@@ -2,7 +2,7 @@ package de.unixkiwi.politikwatch.domain.models
 
 import java.time.LocalDate
 
-data class BundestagsPoll(
+data class AWPoll(
     val id: Int,
     val entityType: String,
     val label: String,

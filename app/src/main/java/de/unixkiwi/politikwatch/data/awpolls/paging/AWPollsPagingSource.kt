@@ -1,20 +1,20 @@
-package de.unixkiwi.politikwatch.data.polls.paging
+package de.unixkiwi.politikwatch.data.awpolls.paging
 
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import de.unixkiwi.politikwatch.data.awpolls.model.AWApiPollModel
 import de.unixkiwi.politikwatch.data.core.model.AWApiResponseWrapper
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
-import de.unixkiwi.politikwatch.data.polls.model.AWApiPollModel
-import de.unixkiwi.politikwatch.domain.models.BundestagsPoll
+import de.unixkiwi.politikwatch.domain.models.AWPoll
 import retrofit2.HttpException
 import java.io.IOException
 
-class PollsPagingSource(
+class AWPollsPagingSource(
     private val api: AbgeordnetenWatchApi
-) : PagingSource<Int, BundestagsPoll>() {
+) : PagingSource<Int, AWPoll>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, BundestagsPoll> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AWPoll> {
         return try {
             val offset = params.key ?: 0
             val limit = params.loadSize
@@ -41,7 +41,7 @@ class PollsPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, BundestagsPoll>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, AWPoll>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(state.config.pageSize)
