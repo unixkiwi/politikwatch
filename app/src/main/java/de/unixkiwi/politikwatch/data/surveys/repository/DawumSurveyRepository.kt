@@ -1,7 +1,7 @@
 package de.unixkiwi.politikwatch.data.surveys.repository
 
-import de.unixkiwi.politikwatch.data.core.model.DawumApiResponse
-import de.unixkiwi.politikwatch.data.core.remote.DawumApi
+import de.unixkiwi.politikwatch.data.surveys.model.DawumApiResponse
+import de.unixkiwi.politikwatch.data.surveys.repo.DawumApi
 import de.unixkiwi.politikwatch.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

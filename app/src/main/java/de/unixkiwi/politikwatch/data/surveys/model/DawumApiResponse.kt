@@ -1,6 +1,4 @@
-package de.unixkiwi.politikwatch.data.core.model
-
-import de.unixkiwi.politikwatch.data.surveys.model.DawumSurveyModel
+package de.unixkiwi.politikwatch.data.surveys.model
 
 data class DawumApiResponse(
     val Database: DawumDatabaseModel,

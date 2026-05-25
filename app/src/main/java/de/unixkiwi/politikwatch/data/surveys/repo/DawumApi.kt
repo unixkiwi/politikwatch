@@ -1,6 +1,6 @@
-package de.unixkiwi.politikwatch.data.core.remote
+package de.unixkiwi.politikwatch.data.surveys.repo
 
-import de.unixkiwi.politikwatch.data.core.model.DawumApiResponse
+import de.unixkiwi.politikwatch.data.surveys.model.DawumApiResponse
 import retrofit2.http.GET
 
 interface DawumApi {

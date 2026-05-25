@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
-import de.unixkiwi.politikwatch.data.core.remote.DawumApi
+import de.unixkiwi.politikwatch.data.surveys.repo.DawumApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
