@@ -1,4 +1,4 @@
-package de.unixkiwi.politikwatch.data.surveys.repo
+package de.unixkiwi.politikwatch.data.surveys.remote
 
 import de.unixkiwi.politikwatch.data.surveys.model.DawumApiResponse
 import retrofit2.http.GET
