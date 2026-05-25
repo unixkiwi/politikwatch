@@ -6,8 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.unixkiwi.politikwatch.data.awpolls.repo.AWPollRepository
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
-import de.unixkiwi.politikwatch.data.surveys.repo.DawumApi
-import de.unixkiwi.politikwatch.data.surveys.repository.DawumSurveyRepository
+import de.unixkiwi.politikwatch.data.surveys.remote.DawumApi
+import de.unixkiwi.politikwatch.data.surveys.repo.DawumSurveyRepository
+import de.unixkiwi.politikwatch.data.surveys.local.SurveyDatabase
 import de.unixkiwi.politikwatch.data.votes.repo.VoteRepository
 import javax.inject.Singleton
 
@@ -29,7 +30,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideDawumSurveyRepo(api: DawumApi): DawumSurveyRepository {
-        return DawumSurveyRepository(api)
+    fun provideDawumSurveyRepo(api: DawumApi, db: SurveyDatabase): DawumSurveyRepository {
+        return DawumSurveyRepository(api, db)
     }
 }
