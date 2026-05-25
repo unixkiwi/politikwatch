@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.unixkiwi.politikwatch.data.awpolls.repo.AWPollRepository
+import de.unixkiwi.politikwatch.data.surveys.repo.DawumSurveyRepository
 import de.unixkiwi.politikwatch.domain.models.AWPoll
+import de.unixkiwi.politikwatch.domain.models.Survey
 import de.unixkiwi.politikwatch.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -14,23 +17,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val pollsRepo: AWPollRepository
+    private val pollsRepo: AWPollRepository,
+    private val surveyRepo: DawumSurveyRepository
 ) : ViewModel() {
     private val _state: MutableStateFlow<HomeState> = MutableStateFlow(HomeState.Loading)
     val state = _state.asStateFlow()
 
-
     init {
+        getLatestSurveys()
         getPolls()
     }
 
-    private fun getPolls(/*fetchFromRemote: Boolean = false*/) {
-        viewModelScope.launch {
-            pollsRepo.getLatestPolls(15).collect { result ->
+    private fun getLatestSurveys() {
+        viewModelScope.launch(Dispatchers.Default) {
+            surveyRepo.getSurveys().collect { result ->
                 when (result) {
                     is Resource.Success -> {
-                        result.data?.let { polls ->
-                            _state.update { HomeState.Success(polls) }
+                        result.data?.let { surveys ->
+                            _state.update { currentState ->
+                                when (currentState) {
+                                    is HomeState.Success -> {
+                                        currentState.copy(surveys = surveys)
+                                    }
+
+                                    else -> HomeState.Success(surveys = surveys)
+                                }
+                            }
                         }
                     }
 
@@ -41,7 +53,40 @@ class HomeViewModel @Inject constructor(
                     }
 
                     is Resource.Loading -> {
-                        _state.update { HomeState.Loading }
+                        _state.update { currentState ->
+                            currentState as? HomeState.Success ?: HomeState.Loading
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getPolls(/*fetchFromRemote: Boolean = false*/) {
+        viewModelScope.launch {
+            pollsRepo.getLatestPolls(15).collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { polls ->
+                            _state.update { currentState ->
+                                when (currentState) {
+                                    is HomeState.Success -> currentState.copy(polls = polls)
+                                    else -> HomeState.Success(polls = polls)
+                                }
+                            }
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        result.let { (errorTitle, errorDetails) ->
+                            _state.update { HomeState.Error(errorTitle, errorDetails ?: "") }
+                        }
+                    }
+
+                    is Resource.Loading -> {
+                        _state.update { currentState ->
+                            currentState as? HomeState.Success ?: HomeState.Loading
+                        }
                     }
                 }
             }
@@ -50,7 +95,10 @@ class HomeViewModel @Inject constructor(
 }
 
 sealed interface HomeState {
-    data class Success(val polls: List<AWPoll>) : HomeState
+    data class Success(
+        val polls: List<AWPoll> = emptyList(),
+        val surveys: List<Survey> = emptyList()
+    ) : HomeState
 
     data class Error(val title: String, val desc: String) : HomeState
     data object Loading : HomeState
