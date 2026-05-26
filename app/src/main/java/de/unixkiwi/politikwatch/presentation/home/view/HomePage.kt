@@ -69,7 +69,8 @@ private fun HomePage(
                         withStyle(
                             style = SpanStyle(
                                 color = MaterialTheme.colorScheme.secondary,
-                                fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                                fontWeight = FontWeight.Thin,
+                                fontSize = MaterialTheme.typography.headlineLarge.fontSize,
                             )
                         ) {
                             append("Watch")
