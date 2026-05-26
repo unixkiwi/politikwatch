@@ -36,11 +36,15 @@ class HomeViewModel @Inject constructor(
                         result.data?.let { surveys ->
                             _state.update { currentState ->
                                 when (currentState) {
-                                    is HomeState.Success -> {
-                                        currentState.copy(surveys = surveys)
-                                    }
+                                    is HomeState.Success -> currentState.copy(
+                                        surveys = surveys,
+                                        surveysLoading = false
+                                    )
 
-                                    else -> HomeState.Success(surveys = surveys)
+                                    else -> HomeState.Success(
+                                        surveys = surveys,
+                                        surveysLoading = false
+                                    )
                                 }
                             }
                         }
@@ -54,7 +58,11 @@ class HomeViewModel @Inject constructor(
 
                     is Resource.Loading -> {
                         _state.update { currentState ->
-                            currentState as? HomeState.Success ?: HomeState.Loading
+                            when (currentState) {
+                                is HomeState.Success -> currentState.copy(surveysLoading = true)
+
+                                else -> HomeState.Success(surveysLoading = true)
+                            }
                         }
                     }
                 }
@@ -70,8 +78,15 @@ class HomeViewModel @Inject constructor(
                         result.data?.let { polls ->
                             _state.update { currentState ->
                                 when (currentState) {
-                                    is HomeState.Success -> currentState.copy(polls = polls)
-                                    else -> HomeState.Success(polls = polls)
+                                    is HomeState.Success -> currentState.copy(
+                                        polls = polls,
+                                        pollsLoading = false
+                                    )
+
+                                    else -> HomeState.Success(
+                                        polls = polls,
+                                        pollsLoading = false
+                                    )
                                 }
                             }
                         }
@@ -85,7 +100,11 @@ class HomeViewModel @Inject constructor(
 
                     is Resource.Loading -> {
                         _state.update { currentState ->
-                            currentState as? HomeState.Success ?: HomeState.Loading
+                            when (currentState) {
+                                is HomeState.Success -> currentState.copy(pollsLoading = true)
+
+                                else -> HomeState.Success(pollsLoading = true)
+                            }
                         }
                     }
                 }
@@ -97,7 +116,9 @@ class HomeViewModel @Inject constructor(
 sealed interface HomeState {
     data class Success(
         val polls: List<AWPoll> = emptyList(),
-        val surveys: List<Survey> = emptyList()
+        val surveys: List<Survey> = emptyList(),
+        val pollsLoading: Boolean = false,
+        val surveysLoading: Boolean = false
     ) : HomeState
 
     data class Error(val title: String, val desc: String) : HomeState
