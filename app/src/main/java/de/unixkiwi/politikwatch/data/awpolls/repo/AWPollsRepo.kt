@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 class AWPollRepository @Inject constructor(
@@ -36,15 +37,15 @@ class AWPollRepository @Inject constructor(
                 emit(Resource.Success(latestRemotePolls))
                 return@flow
             } catch (e: IOException) {
-                e.printStackTrace()
+                Timber.e(e)
                 emit(Resource.Error("Couldn't load data! (IOException)", e.localizedMessage))
                 return@flow
             } catch (e: HttpException) {
-                e.printStackTrace()
+                Timber.e(e)
                 emit(Resource.Error("Couldn't load data! (HttpException)", e.localizedMessage))
                 return@flow
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.e(e)
                 emit(Resource.Error("Couldn't load data! (Unknown Error)", e.localizedMessage))
                 return@flow
             }

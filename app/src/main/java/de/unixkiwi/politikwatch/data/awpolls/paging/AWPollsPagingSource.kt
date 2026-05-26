@@ -1,6 +1,5 @@
 package de.unixkiwi.politikwatch.data.awpolls.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import de.unixkiwi.politikwatch.data.awpolls.model.AWApiPollModel
@@ -8,6 +7,7 @@ import de.unixkiwi.politikwatch.data.core.model.AWApiResponseWrapper
 import de.unixkiwi.politikwatch.data.core.remote.AbgeordnetenWatchApi
 import de.unixkiwi.politikwatch.domain.models.AWPoll
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 
 class AWPollsPagingSource(
@@ -32,11 +32,13 @@ class AWPollsPagingSource(
                 nextKey = if (polls.isEmpty()) null else offset + limit
             )
         } catch (e: IOException) {
+            Timber.e(e, "Network error: ${e.localizedMessage}")
             LoadResult.Error(e) // No internet connection
         } catch (e: HttpException) {
+            Timber.e(e, "HTTP error: ${e.code()} - ${e.message()}")
             LoadResult.Error(e) // Server error 404, 500
         } catch (e: Exception) {
-            Log.e("PollsPagingSource", "Unexpected error: ${e.localizedMessage}", e)
+            Timber.e(e, "Unexpected error: ${e.localizedMessage}")
             LoadResult.Error(e)
         }
     }
