@@ -95,7 +95,7 @@ fun HomeSuccessComponent(state: HomeState.Success, modifier: Modifier = Modifier
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 8.dp, top = 8.dp, bottom = 8.dp, end = 8.dp)
+                            .padding(12.dp)
                             .clip(CardDefaults.shape),
                         verticalArrangement = Arrangement.SpaceEvenly,
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -105,7 +105,7 @@ fun HomeSuccessComponent(state: HomeState.Success, modifier: Modifier = Modifier
                             pageSpacing = 16.dp,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(160.dp)
+                                .height(180.dp)
 
                         ) { page ->
                             Column(
@@ -161,7 +161,8 @@ fun HomeSuccessComponent(state: HomeState.Success, modifier: Modifier = Modifier
 
                         CustomPageIndicator(
                             pageCount = state.polls.size,
-                            currentPage = pagerState.currentPage
+                            currentPage = pagerState.currentPage,
+                            modifier = Modifier.padding(bottom = 2.dp, top = 4.dp)
                         )
                     }
                 }
